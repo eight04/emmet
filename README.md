@@ -1,4 +1,4 @@
-# Emmet — the essential toolkit for web-developers 
+# Emmet — the essential toolkit for web-developers
 
 [![Get Support](http://codersclan.net/graphics/getSupport_github4.png)](http://codersclan.net/support/step1.php?repo_id=4)
 
@@ -20,3 +20,8 @@ For example, this abbreviation:
 	</ul>
 
 [Learn more about Emmet features](http://docs.emmet.io)
+
+## jsPerf References
+
+https://jsperf.com/charat-vs-index/2
+https://jsperf.com/if-switch-lookup-table/10

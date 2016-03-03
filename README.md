@@ -25,3 +25,32 @@ For example, this abbreviation:
 
 https://jsperf.com/charat-vs-index/2
 https://jsperf.com/if-switch-lookup-table/10
+
+## Algorithm
+
+### Basic
+
+Use stack to flatten it.
+
+```
+search any
+if type is close:
+	found
+if type is open:
+	find close
+	start search from close
+		
+find close (open):
+	search any
+	if type is close
+		return close
+	if type is open
+		find close
+		start search from close
+```
+
+### Quick search
+
+Maintain one DOM Tree, multiple Tag Tree. The DOM Tree can be constructed with basic algorithm. The Tag Tree can be constructed with Quick Match, which will search its own tag name with indexOf.
+
+If a tree or sub tree is completely built (i.e. meeting a close tag), it can be removed from tree. When a tree is removed, it should tell other trees that it is removed so other trees can adjust their searching range.

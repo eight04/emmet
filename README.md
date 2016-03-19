@@ -56,33 +56,71 @@ Maintain one DOM Tree, multiple Tag Tree. The DOM Tree can be constructed with b
 If a tree or sub tree is completely built (i.e. meeting a close tag), it can be removed from tree. When a tree is removed, it should tell other trees that it is removed so other trees can adjust their searching range.
 
 ```
-createMatcher().loop()
+createMatcher().search()
+
+matcher.search():
+	result = this.hit()
+	if not result:
+		result = this.loop()
+	return makeRange(result)
+	
+matcher.hit():
+	// Try to hit comment
+	i = text.lastIndexOf("<!--", pos - 1)
+	if i < 0:
+		return
+		
+	tag = matchTag(i)
+	if not tag:
+		return
+		
+	return [tag, null]
 
 matcher.loop():
-	while not this.forward.finished or not this.backward.finished:
-		if not this.forward.finished:
-			this.forward.next()
-		if not this.backward.finished:
-			this.backward.next()
-			
-		if this.forward.tag and this.backward.tag:
-			if this.forward.tag.name != this.backward.tag.name:
-				this.backward.finished = False
-				this.backward.tag = None
+	this.forward = createForwardSearch(pos)
+	this.backward = createBackwardSearch(pos - 1)
+
+	while not this.forward.finished and not this.backward.finished:
+		this.forward.next()
+		this.backward.next()
+				
+	while not this.forward.finished:
+		this.forward.next()
+		
+	if not this.forward.tag:
+		return
+		
+	this.backward.paired = this.forward.tag
+	
+	if this.backward.tag and this.forward.tag.name != this.backward.tag.name:
+		this.backward.finished = False
+		this.backward.tag = None
+		
+	while not this.backward.finished:
+		this.backward.next()
+		
+	return [this.backward.tag, this.forward.tag]
 	
 forward.next():
-	tag = this.domTree.next()
-	if tag.name not in this.tagTreePool:
-		if tag.type == "open":
-			this.tagTreePool.add(createTagTree(tag))
-		else:
-			this.tag = tag
-			this.finished = True
+	result = this.domTree.next()
+	if result.unPaired:
+		this.tag = result.tag
+		this.finished = true
+		return this.tag
+		
+	if result.tag.type == "comment":
+		this.excludeSearchRange(result.tag.range)
+		
+	elif result.tag.name not in this.tagTreePool and result.tag.type == "open":
+		this.tagTreePool.add(createTagTree(tag))
 		
 	for tree in this.tagPool:
 		result = tree.next()
 		if result.detachedTree:
-			this.excludeSearchRange(result.detachedTree)
+			this.excludeSearchRange({
+				start: result.detachedTree.open.range.start,
+				end: result.detachedTree.close.range.end
+			})
 			
 	this.removeFinishedTagTree()
 ```

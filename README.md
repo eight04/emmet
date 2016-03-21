@@ -23,10 +23,10 @@ For example, this abbreviation:
 
 ## jsPerf References
 
-https://jsperf.com/charat-vs-index/2
-https://jsperf.com/if-switch-lookup-table/10
-https://jsperf.com/fastest-array-loops-in-javascript/233
-https://jsperf.com/prototype-vs-object-create-perf/13
+http://jsperf.com/charat-vs-index/2
+http://jsperf.com/if-switch-lookup-table/10
+http://jsperf.com/fastest-array-loops-in-javascript/532
+http://jsperf.com/prototype-vs-object-create-perf/13
 
 ## Algorithm
 

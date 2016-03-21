@@ -26,6 +26,7 @@ For example, this abbreviation:
 https://jsperf.com/charat-vs-index/2
 https://jsperf.com/if-switch-lookup-table/10
 https://jsperf.com/fastest-array-loops-in-javascript/233
+https://jsperf.com/prototype-vs-object-create-perf/13
 
 ## Algorithm
 

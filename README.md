@@ -27,7 +27,3 @@ http://jsperf.com/charat-vs-index/2
 http://jsperf.com/if-switch-lookup-table/10
 http://jsperf.com/fastest-array-loops-in-javascript/532
 http://jsperf.com/prototype-vs-object-create-perf/13
-
-Todos
------
-* `Excludes` should be a global service instead of be inside the match. So newly created match can use those exclude ranges.

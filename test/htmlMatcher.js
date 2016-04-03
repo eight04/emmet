@@ -35,6 +35,11 @@ describe('HTML matcher', function() {
 	function match(text, pos, resultStart, resultEnd, label) {
 		var m = htmlMatcher.find(text, pos);
 		var expectedRange = range.create2(resultStart, resultEnd);
+		if (!m) {
+			m = {
+				range: range(0,0)
+			};
+		}
 		assertTextRanges(text, m.range, expectedRange, pos);
 	}
 	

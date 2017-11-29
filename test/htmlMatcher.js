@@ -88,6 +88,7 @@ describe('HTML matcher', function() {
 		var htmlString3 = '<b><b><br></b></b>';
 		var htmlString4 = '<div class="test3"><div class="test10"><p><div class="test4"><img src="test.jpg" alt="" width="50" height="50"><div class="test5"><div class="test6"></div></div></div></p></div><div class="test7"></div></div>';
 		var htmlString5 = '<@include "aaaa"><div></div><@include "aaaa">';
+		var htmlString6 = '<div><input></div><input>'
 		
 		match(htmlString, 25, 22, 26, 'Matched BR tag');
 		match(htmlString, 27, 3, 82, 'Matched P tag');
@@ -102,6 +103,8 @@ describe('HTML matcher', function() {
 		match(htmlString4, 205, 0, 208);
 		
 		match(htmlString5, 17, null);
+		
+		match(htmlString6, 8, 5, 12);
 	});
 
 	it('must work fast', function() {

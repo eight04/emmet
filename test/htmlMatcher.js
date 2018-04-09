@@ -110,4 +110,18 @@ describe('HTML matcher', function() {
 	it('must work fast', function() {
 		var m = htmlMatcher.find(htmlFile, 20697);
 	});
+	
+	it('cache result', function() {
+		htmlMatcher.cache(true);
+		htmlMatcher.find(htmlFile, 20697);
+		htmlMatcher.find(htmlFile, 20697);
+		htmlMatcher.cache(false);
+	});
+	
+	it('infinite recursion issue (#1)', function() {
+		htmlMatcher.cache(true);
+		htmlMatcher.cache(true);
+		htmlMatcher.find(htmlFile, 20697);
+		htmlMatcher.cache(false);
+	});
 });
